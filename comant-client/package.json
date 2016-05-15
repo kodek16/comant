@@ -1,0 +1,24 @@
+{
+  "name": "comant",
+  "version": "1.0.0",
+  "description": "Course management tool",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.3.1",
+    "rimraf": "^2.5.2",
+    "yargs": "^4.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "build": "./node_modules/gulp/bin/gulp.js build",
+    "clean": "./node_modules/gulp/bin/gulp.js clean"
+  },
+  "author": "",
+  "license": "MIT"
+}

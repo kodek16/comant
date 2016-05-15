@@ -1,0 +1,13 @@
+**/.gradle/
+**/.idea/
+build/
+comant-client/bower_components
+comant-client/build
+comant-client/dist
+comant-client/node_modules
+comant-site/build
+
+#Directory below is used for development live-reload
+#and should be empty (or not exist at all) in production.
+comant-site/src/main/resources/static/
+

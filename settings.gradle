@@ -1,0 +1,3 @@
+rootProject.name = 'comant'
+
+include 'comant-client', 'comant-site'

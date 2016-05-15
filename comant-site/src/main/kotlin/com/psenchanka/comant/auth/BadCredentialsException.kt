@@ -1,0 +1,7 @@
+package com.psenchanka.comant.auth
+
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.ResponseStatus
+
+@ResponseStatus(HttpStatus.FORBIDDEN)
+class BadCredentialsException : RuntimeException() {}
