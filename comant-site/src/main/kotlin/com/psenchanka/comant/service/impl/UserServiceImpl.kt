@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 class UserServiceImpl @Autowired constructor(val userDao: UserDao) : UserService {
 
     @Value("\${comant.secret}")
-    private lateinit var secret: String;
+    private lateinit var secret: String
 
     override fun save(user: User) = userDao.save(user)
     override fun findAll(): List<User> = userDao.findAll()

@@ -11,20 +11,22 @@ import org.springframework.stereotype.Repository
 open class UserDaoImpl @Autowired constructor(val sessionFactory: SessionFactory) : UserDao {
 
     override fun save(user: User)
-            = sessionFactory.currentSession.persist(user);
+            = sessionFactory.currentSession
+            .persist(user)
 
-    override fun findAll(): List<User>
+    @Suppress("UNCHECKED_CAST")
+    override fun findAll()
             = sessionFactory.currentSession
             .createCriteria(User::class.java)
-            .list() as List<User>;
+            .list() as List<User>
 
-    override fun findByUsername(username: String): User?
+    override fun findByUsername(username: String)
             = sessionFactory.currentSession
             .createCriteria(User::class.java)
             .add(Restrictions.eq("username", username))
-            .uniqueResult() as User?;
+            .uniqueResult() as User?
 
     override fun update(user: User)
             = sessionFactory.currentSession
-            .update(user);
+            .update(user)
 }

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 open class WebConfiguration : WebMvcConfigurerAdapter() {
 
     override fun addInterceptors(registry: InterceptorRegistry) {
-        registry.addInterceptor(authenticationInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(authenticationInterceptor()).addPathPatterns("/**")
     }
 
     @Bean

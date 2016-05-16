@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest
 class AuthenticationControllerAdvice {
 
     @Autowired
-    private lateinit var userService: UserService;
+    private lateinit var userService: UserService
 
     @ModelAttribute
     fun addAuthenticatedUserAttribute(model: Model, req: HttpServletRequest) {
-        val userName = req.getAttribute("com.psenchanka.comant.authenticatedUser");
+        val userName = req.getAttribute("com.psenchanka.comant.authenticatedUser")
 
-        val user = if (userName != null) userService.findByUsername(userName as String) else null;
-        model.addAttribute("authenticatedUser", user);
+        val user = if (userName != null) userService.findByUsername(userName as String) else null
+        model.addAttribute("authenticatedUser", user)
     }
 }

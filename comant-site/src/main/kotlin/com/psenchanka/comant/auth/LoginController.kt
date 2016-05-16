@@ -11,10 +11,10 @@ class LoginController @Autowired constructor(val userService: UserService) {
 
     @RequestMapping("/api/login")
     fun login(@RequestParam username: String, @RequestParam password: String): String {
-        val user = userService.findByUsername(username);
+        val user = userService.findByUsername(username)
 
         if (user != null && user.passwordMatches(password)) {
-            return userService.generateAccessToken(user);
+            return userService.generateAccessToken(user)
         } else {
             throw BadCredentialsException()
         }

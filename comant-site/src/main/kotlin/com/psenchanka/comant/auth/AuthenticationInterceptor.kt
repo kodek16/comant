@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse
 class AuthenticationInterceptor : HandlerInterceptorAdapter() {
 
     @Value("\${comant.secret}")
-    private lateinit var secret: String;
+    private lateinit var secret: String
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any?): Boolean {
-        val authorizationHeader = request.getHeader("Authorization");
+        val authorizationHeader = request.getHeader("Authorization")
 
         val jwtToken =
                 if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
@@ -28,12 +28,12 @@ class AuthenticationInterceptor : HandlerInterceptorAdapter() {
                 if (jwtToken == null) {
                     null
                 } else try {
-                    Jwts.parser().setSigningKey(secret).parseClaimsJws(jwtToken).body.subject;
+                    Jwts.parser().setSigningKey(secret).parseClaimsJws(jwtToken).body.subject
                 } catch (e: SignatureException) {
                     null
                 }
 
-        request.setAttribute("com.psenchanka.comant.authenticatedUser", userName);
+        request.setAttribute("com.psenchanka.comant.authenticatedUser", userName)
 
         //Request should be passed further.
         return true
