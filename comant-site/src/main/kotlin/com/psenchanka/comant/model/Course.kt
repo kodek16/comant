@@ -1,6 +1,6 @@
 package com.psenchanka.comant.model
 
-import java.util.*
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -15,9 +15,9 @@ class Course {
 
     lateinit var description: String
 
-    lateinit var startsOn: Date
+    lateinit var startsOn: LocalDate
 
-    lateinit var endsOn: Date
+    lateinit var endsOn: LocalDate
 
     @ManyToMany(cascade = arrayOf(CascadeType.ALL))
     @JoinTable(name = "code.course_instructors",
