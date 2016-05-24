@@ -1,35 +1,51 @@
 <!DOCTYPE html>
-<html data-ng-app="comantApp" ng-controller="PageController as page" lang="en">
+<html data-ng-app="comantApp" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title data-ng-bind="page.siteName">Comant</title>
+    <title data-ng-bind="siteName">Loading...</title>
 
     <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.min.css" />
     <link rel="stylesheet" href="app.css" />
 </head>
 <body>
 
-<div data-ng-include="'title-bar/title-bar.html'"></div>
+<div data-ng-include="'blocks/title-bar/title-bar.html'"></div>
 
-<div data-ng-view></div>
+<div data-ui-view></div>
 
 <!-- Scripts -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/what-input/what-input.min.js"></script>
-<script src="bower_components/foundation-sites/dist/foundation.min.js"></script>
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/foundation/js/foundation.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-foundation/mm-foundation-tpls.min.js"></script>
 <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
 
 <script src="scripts/app.js"></script>
-<script src="scripts/page/PageController.js"></script>
-<script src="scripts/login-form/LoginFormController.js"></script>
+
+<script src="scripts/config/authenticationInterceptorConfig.js"></script>
+<script src="scripts/config/localStorageConfig.js"></script>
+<script src="scripts/config/stateConfig.js"></script>
+
+<script src="scripts/services/Course.js"></script>
+<script src="scripts/services/session.js"></script>
+<script src="scripts/services/User.js"></script>
+
+<script src="scripts/filters/dateComponents.js"></script>
+
+<script src="scripts/run/loadCurrentUserData.js"></script>
+<script src="scripts/run/loadSiteSettings.js"></script>
+<script src="scripts/run/protectStates.js"></script>
+
+<script src="scripts/blocks/courses-overview/CoursesOverviewController.js"></script>
+<script src="scripts/blocks/login-modal/LoginModalController.js"></script>
+<script src="scripts/blocks/login-modal/loginModal.js"></script>
 
 </body>
 </html>

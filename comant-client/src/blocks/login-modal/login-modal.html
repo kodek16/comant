@@ -1,0 +1,14 @@
+<form name="loginForm" class="login-modal reveal" novalidate>
+    <div class="row">
+        <h2>Please log in to continue</h2>
+    </div>
+    <input data-ng-model="username" type="text"
+           name="username" placeholder="Username" required />
+    <input data-ng-model="password" type="password"
+           name="password" placeholder="Password" required />
+    <input type="submit" class="button expand" value="Log In"
+           data-ng-click="loginModal.submit(username, password)"
+           data-ng-disabled="loginForm.$invalid"/>
+    <button role="button" class="button secondary expand"
+           data-ng-click="loginModal.cancel()">No, thanks</button>
+</form>

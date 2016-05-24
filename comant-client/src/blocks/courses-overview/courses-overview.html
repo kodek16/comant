@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="small-12 columns">
+        <h1>Courses List</h1>
+    </div>
+</div>
+
+<form class="row">
+    <div class="small-12 medium-4 columns">
+        <label for="courseNameFilter">Name</label>
+        <input data-ng-model="coursesOverview.query" id="courseNameFilter" type="text" />
+    </div>
+</form>
+
+<div class="row">
+    <div class="small-12 medium-6 large-4 columns"
+         data-ng-repeat="course in coursesOverview.courses | filter:{name: coursesOverview.query}"
+         data-ng-class="{end: $last}">
+        <div data-ng-include="'blocks/courses-overview/course-card/course-card.html'"></div>
+    </div>
+</div>

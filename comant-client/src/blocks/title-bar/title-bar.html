@@ -1,15 +1,19 @@
 <top-bar class="title-bar">
     <ul class="title-area">
         <li class="name">
-            <h1><a href="#">{{ page.siteName }}</a></h1>
+            <h1><a href="#">{{ siteName }}</a></h1>
         </li>
         <li data-toggle-top-bar class="menu-icon"><a href="#">Menu</a></li>
     </ul>
 
     <top-bar-section>
         <ul class="left">
-            <li><a href="#">Courses</a></li>
-            <li><a href="#">Students</a></li>
+            <li><a ui-sref="welcome">Welcome</a></li>
+            <li><a ui-sref="courses">Courses</a></li>
+        </ul>
+
+        <ul class="right">
+            <li><a ui-sref="logout">Logout</a></li>
         </ul>
     </top-bar-section>
 </top-bar>
