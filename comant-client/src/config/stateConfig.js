@@ -20,6 +20,15 @@
           requireLogin: true
         }
       })
+      .state('courses.ongoing', {
+        url: '/ongoing'
+      })
+      .state('courses.past', {
+        url: '/past'
+      })
+      .state('courses.new', {
+        url: '/new'
+      })
       .state('welcome', {
         url: '/welcome',
         templateUrl: 'blocks/welcome-page/welcome-page.html',

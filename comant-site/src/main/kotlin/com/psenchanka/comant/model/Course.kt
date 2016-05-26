@@ -30,4 +30,8 @@ class Course {
             joinColumns = arrayOf(JoinColumn(name = "course_id", nullable = false)),
             inverseJoinColumns = arrayOf(JoinColumn(name = "user_username", nullable = false)))
     lateinit var listeners: MutableList<User>
+
+    fun isOngoing() = startsOn <= LocalDate.now() && LocalDate.now() <= endsOn
+    fun isPast() = endsOn < LocalDate.now()
+    fun isNew() = LocalDate.now() < startsOn
 }

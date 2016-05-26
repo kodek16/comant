@@ -4,7 +4,6 @@ import com.psenchanka.comant.model.Course
 import com.psenchanka.comant.model.User
 import com.psenchanka.comant.service.CourseService
 import com.psenchanka.comant.service.UserService
-import org.hibernate.Hibernate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.RequestMapping
@@ -40,7 +39,7 @@ open class TestController @Autowired constructor(val userService: UserService, v
     open fun addListener() {
         val user = userService.findByUsername("admin")
         val course = courseService.findAll()[0]
-        Hibernate.initialize(course.listeners)
+        //Hibernate.initialize(course.listeners)
         course.listeners.add(user!!)
         courseService.update(course)
         print(user.coursesListened)

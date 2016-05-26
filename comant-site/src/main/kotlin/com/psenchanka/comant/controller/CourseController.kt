@@ -3,18 +3,18 @@ package com.psenchanka.comant.controller
 import com.psenchanka.comant.dto.CourseDto
 import com.psenchanka.comant.dto.UserDto
 import com.psenchanka.comant.service.CourseService
+import com.psenchanka.comant.service.UserService
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
-import org.hibernate.Hibernate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
 @RestController
-open class CourseController @Autowired constructor(val courseService: CourseService) {
+open class CourseController @Autowired constructor(val courseService: CourseService, val userService: UserService) {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No course with given id")
     class CourseNotFoundException : RuntimeException()
@@ -29,21 +29,38 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
     @Transactional
     open fun getAllCourses(
             @ApiParam("Include instructors?") @RequestParam(required = false) withInstructors: String?,
-            @ApiParam("Include listeners?") @RequestParam(required = false) withListeners: String?
+            @ApiParam("Include listeners?") @RequestParam(required = false) withListeners: String?,
+            @ApiParam("Search by state (ongoing/past/new)") @RequestParam(required = false) state: String?,
+            @ApiParam("Search by related user (listener or instructor)") @RequestParam(required = false) ofUser: String?
     ): List<CourseDto> {
-        return courseService.findAll().map {
-            val course = CourseDto.from(it);
-            if (withInstructors == "true") {
-                Hibernate.initialize(it.instructors)
-                course.instructors = it.instructors.map { user -> UserDto.from(user) }
-            }
-            if (withListeners == "true") {
-                Hibernate.initialize(it.listeners)
-                course.listeners = it.listeners.map { user -> UserDto.from(user) }
-            }
+        return courseService.findAll()
+                .filter {
+                    when (state) {
+                        "ongoing" -> it.isOngoing()
+                        "past" -> it.isPast()
+                        "new" -> it.isNew()
+                        else -> true
+                    }
+                }
+                .filter {
+                    if (ofUser != null) {
+                        it.instructors.contains(userService.findByUsername(ofUser))
+                                || it.listeners.contains(userService.findByUsername(ofUser))
+                    } else {
+                        true
+                    }
+                }
+                .map {
+                    val course = CourseDto.from(it);
+                    if (withInstructors == "true") {
+                        course.instructors = it.instructors.map { user -> UserDto.from(user) }
+                    }
+                    if (withListeners == "true") {
+                        course.listeners = it.listeners.map { user -> UserDto.from(user) }
+                    }
 
-            course
-        }
+                    course
+                }
     }
 
     @RequestMapping("/api/courses/{id}", method = arrayOf(RequestMethod.GET))
@@ -68,11 +85,9 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
         if (course != null) {
             val result = CourseDto.from(course)
             if (withInstructors == "true") {
-                Hibernate.initialize(course.instructors)
                 result.instructors = course.instructors.map { UserDto.from(it) }
             }
             if (withListeners == "true") {
-                Hibernate.initialize(course.listeners)
                 result.listeners = course.listeners.map { UserDto.from(it) }
             }
             return result
@@ -99,7 +114,6 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
         }
 
         if (course != null) {
-            Hibernate.initialize(course.instructors)
             return course.instructors.map { UserDto.from(it) }
         } else {
             throw CourseNotFoundException()
@@ -124,7 +138,6 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
         }
 
         if (course != null) {
-            Hibernate.initialize(course.listeners)
             return course.listeners.map { UserDto.from(it) }
         } else {
             throw CourseNotFoundException()

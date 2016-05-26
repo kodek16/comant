@@ -5,17 +5,35 @@
     .module('comantApp')
     .controller('CoursesOverviewController', CoursesOverviewController);
 
-  CoursesOverviewController.$inject = ['Course', '$http'];
+  CoursesOverviewController.$inject = ['Course', '$scope', '$state'];
 
-  function CoursesOverviewController(Course, $http) {
+  function CoursesOverviewController(Course, $scope, $state) {
     let vm = this;
     
-    vm.courses = [];
+    vm.ongoingCourses = [];
+    vm.pastCourses = [];
+    vm.newCourses = [];
+
+    vm.shouldShow = shouldShow;
 
     init();
 
     function init() {
-      vm.courses = Course.query();
+      vm.ongoingCourses = Course.query({
+        'state': 'ongoing',
+        'ofUser': $scope.currentUser.username
+      });
+      vm.pastCourses = Course.query({
+        'state': 'past',
+        'ofUser': $scope.currentUser.username
+      });
+      vm.newCourses = Course.query({
+        'state': 'new'
+      });
+    }
+
+    function shouldShow(state) {
+      return $state.is('courses')|| $state.is('courses.' + state);
     }
   }
 })();

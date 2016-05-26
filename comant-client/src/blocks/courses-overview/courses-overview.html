@@ -5,16 +5,34 @@
 </div>
 
 <form class="row">
-    <div class="small-12 medium-4 columns">
-        <label for="courseNameFilter">Name</label>
-        <input data-ng-model="coursesOverview.query" id="courseNameFilter" type="text" />
+    <div class="small-12 medium-6 columns">
+        <label>
+            Name
+            <input data-ng-model="coursesOverview.query" type="text" />
+        </label>
+    </div>
+    <div class="small-12 medium-6 columns">
+        <label>Show</label>
+        <dl class="courses-overview__state-filter">
+            <dd ui-sref-active-eq="active"><a ui-sref="courses">All</a></dd>
+            <dd ui-sref-active="active"><a ui-sref=".ongoing">Ongoing</a></dd>
+            <dd ui-sref-active="active"><a ui-sref=".past">Past</a></dd>
+            <dd ui-sref-active="active"><a ui-sref=".new">New</a></dd>
+        </dl>
     </div>
 </form>
 
-<div class="row">
-    <div class="small-12 medium-6 large-4 columns"
-         data-ng-repeat="course in coursesOverview.courses | filter:{name: coursesOverview.query}"
-         data-ng-class="{end: $last}">
-        <div data-ng-include="'blocks/courses-overview/course-card/course-card.html'"></div>
-    </div>
-</div>
+<courses-list name="Ongoing courses"
+              from="coursesOverview.ongoingCourses"
+              query="coursesOverview.query"
+              ng-show="coursesOverview.shouldShow('ongoing')"></courses-list>
+
+<courses-list name="Past courses"
+              from="coursesOverview.pastCourses"
+              query="coursesOverview.query"
+              ng-show="coursesOverview.shouldShow('past')"></courses-list>
+
+<courses-list name="New courses"
+              from="coursesOverview.newCourses"
+              query="coursesOverview.query"
+              ng-show="coursesOverview.shouldShow('new')"></courses-list>

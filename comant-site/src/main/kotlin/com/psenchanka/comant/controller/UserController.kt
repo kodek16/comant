@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
-import org.hibernate.Hibernate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.transaction.annotation.Transactional
@@ -73,7 +72,6 @@ open class UserController @Autowired constructor(val userService: UserService) {
         val user = userService.findByUsername(username)
 
         if (user != null) {
-            Hibernate.initialize(user.coursesInstructed)
             return user.coursesInstructed.map { CourseDto.from(it) }
         } else {
             throw UserNotFoundException()
@@ -94,7 +92,6 @@ open class UserController @Autowired constructor(val userService: UserService) {
         val me = if (myUsername != null) userService.findByUsername(myUsername) else null
 
         if (me != null) {
-            Hibernate.initialize(me.coursesInstructed)
             return me.coursesInstructed.map { CourseDto.from(it) }
         } else {
             throw NotAuthenticatedException()
@@ -115,7 +112,6 @@ open class UserController @Autowired constructor(val userService: UserService) {
         val user = userService.findByUsername(username)
 
         if (user != null) {
-            Hibernate.initialize(user.coursesListened)
             return user.coursesListened.map { CourseDto.from(it) }
         } else {
             throw UserNotFoundException()
@@ -136,7 +132,6 @@ open class UserController @Autowired constructor(val userService: UserService) {
         val me = if (myUsername != null) userService.findByUsername(myUsername) else null
 
         if (me != null) {
-            Hibernate.initialize(me.coursesListened)
             return me.coursesListened.map { CourseDto.from(it) }
         } else {
             throw NotAuthenticatedException()
