@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/api/login")
 class LoginController @Autowired constructor(val userService: UserService) {
 
-    @RequestMapping("/api/login", method = arrayOf(RequestMethod.POST))
-    @ApiOperation(value = "Authenticates user",
+    @RequestMapping("", method = arrayOf(RequestMethod.POST))
+    @ApiOperation("Log in",
                   notes = "Returns a JWT token that can be used for accessing protected API methods.")
     @ApiResponses(
             ApiResponse(code = 200, message = "OK"),
@@ -28,7 +29,7 @@ class LoginController @Autowired constructor(val userService: UserService) {
             @ApiParam("User credentials") @RequestBody credentials: AuthorizationDto
     ) : AuthenticationTokenDto {
         val (username, password) = credentials
-        val user = userService.findByUsername(username)
+        val user = userService.findById(username)
 
         if (user != null && user.passwordMatches(password)) {
             return AuthenticationTokenDto(userService.generateAccessToken(user))

@@ -28,6 +28,8 @@ open class SwaggerConfiguration {
             .securityContexts(listOf(securityContext()))
             .apiInfo(ApiInfo("comant API", "", "1.0", "", Contact("", "", ""), "", ""))
             .useDefaultResponseMessages(false)
+            .directModelSubstitute(java.time.LocalDate::class.java, java.util.Date::class.java)
+            .directModelSubstitute(java.time.LocalDateTime::class.java, java.util.Date::class.java)
 
     //Security in Swagger UI doesn't work yet.
     @Bean

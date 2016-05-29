@@ -12,18 +12,26 @@ class User {
         ADMIN
     }
 
+    enum class Gender {
+        MALE,
+        FEMALE
+    }
+
     @Id
     lateinit var username: String
 
     lateinit var password: String
 
     lateinit var firstname: String
-
     lateinit var lastname: String
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     lateinit var role: Role
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    lateinit var gender: Gender
 
     @ManyToMany(mappedBy = "instructors")
     lateinit var coursesInstructed: List<Course>

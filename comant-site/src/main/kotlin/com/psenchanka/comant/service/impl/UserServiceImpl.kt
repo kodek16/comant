@@ -8,19 +8,13 @@ import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service("userService")
-@Transactional
-class UserServiceImpl @Autowired constructor(val userDao: UserDao) : UserService {
+open class UserServiceImpl @Autowired constructor(dao: UserDao)
+         : UserService, AbstractServiceImpl<User, String>(dao) {
 
     @Value("\${comant.secret}")
     private lateinit var secret: String
-
-    override fun save(user: User) = userDao.save(user)
-    override fun findAll(): List<User> = userDao.findAll()
-    override fun findByUsername(username: String) = userDao.findByUsername(username)
-    override fun update(user: User) = userDao.update(user)
 
     override fun generateAccessToken(user: User)
             = Jwts.builder()

@@ -8,9 +8,6 @@
   Course.$inject = ['$resource'];
 
   function Course($resource) {
-    return $resource('api/courses/:id', {
-      withInstructors: true,
-      withListeners: true
-    });
+    return $resource('api/courses/:id');
   }
 })();
