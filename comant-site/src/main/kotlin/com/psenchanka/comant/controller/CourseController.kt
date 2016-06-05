@@ -1,8 +1,6 @@
 package com.psenchanka.comant.controller
 
-import com.psenchanka.comant.dto.BasicClassDto
-import com.psenchanka.comant.dto.BasicCourseDto
-import com.psenchanka.comant.dto.DetailedCourseDto
+import com.psenchanka.comant.dto.*
 import com.psenchanka.comant.service.CourseService
 import com.psenchanka.comant.service.UserService
 import io.swagger.annotations.ApiOperation
@@ -13,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
+import springfox.documentation.annotations.ApiIgnore
 
 @RestController
 @RequestMapping("/api/courses")
@@ -26,14 +25,14 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
     @ApiOperation("Search courses",
                   notes = "Returns all courses satisfying given criteria. If detailed is 'true', detailed data is returned")
     @ApiResponses(
-            ApiResponse(code = 200, message = "OK", response = Array<BasicCourseDto>::class)
+            ApiResponse(code = 200, message = "OK")
     )
     @Transactional
     open fun getAllCourses(
             @ApiParam("Search by state (ongoing/past/new)") @RequestParam(required = false) state: String?,
-            @ApiParam("Search by related user (listener or instructor)") @RequestParam(required = false) ofUser: String?,
+            @ApiParam("Search by related user (listener or instructor)") @RequestParam(required = false) user: String?,
             @ApiParam("Return detailed information?") @RequestParam(required = false) detailed: String?
-    ): List<Any> {
+    ): List<BasicCourseDto> {
         //Returns either List<BasicCourseDto> or List<DetailedCourseDto>
         return courseService.findAll()
                 .filter {
@@ -45,18 +44,18 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
                     }
                 }
                 .filter {
-                    if (ofUser != null) {
-                        it.instructors.contains(userService.findById(ofUser))
-                                || it.listeners.contains(userService.findById(ofUser))
+                    if (user != null) {
+                        it.instructors.contains(userService.findById(user))
+                                || it.listeners.contains(userService.findById(user))
                     } else {
                         true
                     }
                 }
                 .map {
                     if (detailed == "true") {
-                        DetailedCourseDto.from(it) as Any
+                        DetailedCourseDto.from(it)
                     } else {
-                        BasicCourseDto.from(it) as Any
+                        BasicCourseDto.from(it)
                     }
                 }
     }
@@ -87,15 +86,20 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
 
     @RequestMapping("/{id}/classes", method = arrayOf(RequestMethod.GET))
     @ApiOperation("Get course classes",
-                  notes = "Returns an array of classes of given course.")
+                  notes = "Returns an array of classes of given course." +
+                          " If detailed is 'true', detailed data is returned." +
+                          " For course instructors also includes additional protected data.")
     @ApiResponses(
             ApiResponse(code = 200, message = "OK"),
             ApiResponse(code = 404, message = "No course with given id")
     )
     @Transactional
     open fun getClasses(
-            @ApiParam("Id of target course") @PathVariable id: String
+            @ApiIgnore @ModelAttribute("myUsername") myUsername: String?,
+            @ApiParam("Id of target course") @PathVariable id: String,
+            @ApiParam("Return detailed information?") @RequestParam(required = false) detailed: String?
     ): List<BasicClassDto> {
+        //Returns either List<BasicClassDto>, List<DetailedClassDto> or List<InstructorClassDto>
         val course = try {
             courseService.findById(id.toInt())
         } catch(e: NumberFormatException) {
@@ -103,7 +107,13 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
         }
 
         if (course != null) {
-            return course.classes.map { BasicClassDto.from(it) }
+            return if (detailed == "true" && course.instructors.any { it.username == myUsername }) {
+                course.classes.map { InstructorClassDto.from(it) }
+            } else if (detailed == "true") {
+                course.classes.map { DetailedClassDto.from(it) }
+            } else {
+                course.classes.map { BasicClassDto.from(it) }
+            }
         } else {
             throw CourseNotFoundException()
         }

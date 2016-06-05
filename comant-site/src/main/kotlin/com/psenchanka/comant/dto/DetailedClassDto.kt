@@ -3,16 +3,15 @@ package com.psenchanka.comant.dto
 import com.psenchanka.comant.model.Class
 import java.time.LocalDateTime
 
-data class DetailedClassDto(
-        var id: Int,
-        var startsOn: LocalDateTime,
-        var endsOn: LocalDateTime,
-        var name: String?,
-        var description: String?,
+open class DetailedClassDto(
+        id: Int,
+        startsOn: LocalDateTime,
+        endsOn: LocalDateTime,
+        name: String?,
+        description: String?,
         var course: BasicCourseDto,
-        var links: List<LinkDto>,
-        var absentListeners: List<BasicUserDto>,
-        var grades: List<GradeDto>) {
+        var links: List<LinkDto>)
+    : BasicClassDto(id, startsOn, endsOn, name, description) {
 
     companion object {
         fun from(class_: Class) = DetailedClassDto(
@@ -22,8 +21,6 @@ data class DetailedClassDto(
                 class_.name,
                 class_.description,
                 BasicCourseDto.from(class_.course),
-                class_.links.sortedBy { it.order }.map { LinkDto.from(it) },
-                class_.absences.map { BasicUserDto.from(it) },
-                class_.grades.map { GradeDto.from(it) })
+                class_.links.sortedBy { it.order }.map { LinkDto.from(it) })
     }
 }

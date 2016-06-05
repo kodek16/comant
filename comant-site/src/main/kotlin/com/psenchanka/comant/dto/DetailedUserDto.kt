@@ -2,13 +2,14 @@ package com.psenchanka.comant.dto
 
 import com.psenchanka.comant.model.User
 
-data class DetailedUserDto(
-        var username: String,
-        var firstname: String,
-        var lastname: String,
-        var role: String,
+class DetailedUserDto(
+        username: String,
+        firstname: String,
+        lastname: String,
+        role: String,
         var instructedCourses: List<BasicCourseDto>,
-        var listenedCourses: List<BasicCourseDto>) {
+        var listenedCourses: List<BasicCourseDto>)
+    : BasicUserDto(username, firstname, lastname, role) {
 
     companion object {
         fun from(user: User) = DetailedUserDto(

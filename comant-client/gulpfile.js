@@ -4,6 +4,7 @@ let gulp = require('gulp');
 let sass = require('gulp-sass');
 let autoprefixer = require('gulp-autoprefixer');
 let babel = require('gulp-babel');
+let concat = require('gulp-concat');
 
 let argv = require('yargs').argv;
 let rimraf = require('rimraf');
@@ -30,11 +31,13 @@ gulp.task('html:watch', () => {
 // Sass
 
 let sassPaths = [
-  'bower_components/foundation/scss'
+  'bower_components/foundation/scss',
+  'bower_components/font-awesome/scss'
 ];
 
 gulp.task('sass', () => {
-  return gulp.src('src/app.scss')
+  return gulp.src('src/**/*.scss')
+    .pipe(concat('app.scss'))
     .pipe(sass({
       includePaths: sassPaths
     })
@@ -57,7 +60,12 @@ gulp.task('js', () => {
     .pipe(babel({
       presets: ['es2015']
     }))
-    .pipe(gulp.dest(buildDir + "/scripts"))
+    .on('error', function(err) {
+      console.log(err);
+      this.emit('end');
+    })
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest(buildDir))
 });
 
 gulp.task('js:watch', () => {

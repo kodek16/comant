@@ -3,7 +3,7 @@ package com.psenchanka.comant.dto
 import com.psenchanka.comant.model.Class
 import java.time.LocalDateTime
 
-data class BasicClassDto(
+open class BasicClassDto(
         var id: Int?,
         var startsOn: LocalDateTime,
         var endsOn: LocalDateTime,

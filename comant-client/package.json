@@ -11,6 +11,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.0",
     "gulp-sass": "^2.3.1",
     "rimraf": "^2.5.2",
     "yargs": "^4.7.0"

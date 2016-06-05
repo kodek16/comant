@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="column">
+        <table class="fill-horizontally">
+            <tbody>
+            <tr ng-repeat="listener in courseView.course.listeners">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ listener | userFullName }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

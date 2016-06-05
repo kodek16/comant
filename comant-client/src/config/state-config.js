@@ -11,6 +11,13 @@
     $urlRouterProvider.otherwise('/courses');
 
     $stateProvider
+      .state('welcome', {
+        url: '/welcome',
+        templateUrl: 'blocks/welcome-page/welcome-page.html',
+        data: {
+          requireLogin: false
+        }
+      })
       .state('courses', {
         url: '/courses',
         templateUrl: 'blocks/courses-overview/courses-overview.html',
@@ -29,12 +36,27 @@
       .state('courses.new', {
         url: '/new'
       })
-      .state('welcome', {
-        url: '/welcome',
-        templateUrl: 'blocks/welcome-page/welcome-page.html',
+      .state('course', {
+        url: '/course/{courseId}',
+        abstract: true,
+        templateUrl: 'blocks/course-view/course-view.html',
+        controller: 'CourseViewController',
+        controllerAs: 'courseView',
         data: {
-          requireLogin: false
+          requireLogin: true
         }
+      })
+      .state('course.classes', {
+        url: '/classes',
+        templateUrl: 'blocks/classes-list/classes-list.html',
+        controller: 'ClassesListController',
+        controllerAs: 'classesList'
+      })
+      .state('course.students', {
+        url: '/students',
+        templateUrl: 'blocks/listeners-list/listeners-list.html',
+        controller: 'ListenersListController',
+        controllerAs: 'listenersList'
       })
       .state('logout', {
         url: '/logout',

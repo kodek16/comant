@@ -3,13 +3,13 @@
 
   angular
     .module('comantApp')
-    .run(protectStates);
+    .run(registerStateChangeHandler);
 
-  protectStates.$inject = ['loginModal', 'session', '$rootScope', '$state'];
+  registerStateChangeHandler.$inject = ['loginModal', 'session', '$rootScope', '$state'];
 
-  //Prevents anonymous users from accessing protected states.
-  function protectStates(loginModal, session, $rootScope, $state) {
+  function registerStateChangeHandler(loginModal, session, $rootScope, $state) {
     $rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
+
       //'logout' is a redirect state to 'welcome'
       if (toState.name == 'logout') {
         event.preventDefault();
@@ -18,6 +18,7 @@
         return;
       }
 
+      //Prevent anonymous users from accessing protected states.
       let requireLogin = toState.data.requireLogin;
 
       if (requireLogin && typeof $rootScope.currentUser === 'undefined') {

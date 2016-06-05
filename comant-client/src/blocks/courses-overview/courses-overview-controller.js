@@ -20,18 +20,18 @@
 
     function init() {
       vm.ongoingCourses = Course.query({
-        'state': 'ongoing',
-        'ofUser': $scope.currentUser.username,
-        'detailed': 'true'
+        state: 'ongoing',
+        user: $scope.currentUser.username,
+        detailed: 'true'
       });
       vm.pastCourses = Course.query({
-        'state': 'past',
-        'ofUser': $scope.currentUser.username,
-        'detailed': 'true'
+        state: 'past',
+        user: $scope.currentUser.username,
+        detailed: 'true'
       });
       vm.newCourses = Course.query({
-        'state': 'new',
-        'detailed': 'true'
+        state: 'new',
+        detailed: 'true'
       });
     }
 

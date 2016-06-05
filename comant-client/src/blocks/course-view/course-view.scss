@@ -1,0 +1,8 @@
+@import 'foundation';
+
+.course-view__sub-nav {
+  @include sub-nav;
+
+  background-color: #f2f2f2;
+  padding: 7px 0 7px 0;
+}

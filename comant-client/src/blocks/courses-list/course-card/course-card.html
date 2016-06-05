@@ -1,4 +1,4 @@
-<div class="courses-list__course-card">
+<div class="courses-list__course-card" ng-click="courseCard.goToCourse(course)">
     <h3>{{ course.name }}</h3>
     <p>{{ course.description }}</p>
     <p>{{ course.startsOn | date }} - {{ course.endsOn | date }}</p>

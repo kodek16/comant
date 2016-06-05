@@ -3,14 +3,15 @@ package com.psenchanka.comant.dto
 import com.psenchanka.comant.model.Course
 import java.time.LocalDate
 
-data class DetailedCourseDto(
-        var id: Int?,
-        var name: String,
-        var description: String,
-        var startsOn: LocalDate,
-        var endsOn: LocalDate,
+class DetailedCourseDto(
+        id: Int?,
+        name: String,
+        description: String,
+        startsOn: LocalDate,
+        endsOn: LocalDate,
         var instructors: List<BasicUserDto>,
-        var listeners: List<BasicUserDto>) {
+        var listeners: List<BasicUserDto>)
+    : BasicCourseDto(id, name, description, startsOn, endsOn) {
 
     companion object {
         fun from(course: Course) = DetailedCourseDto(

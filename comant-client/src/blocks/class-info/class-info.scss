@@ -1,0 +1,42 @@
+@import 'foundation';
+
+.class-info__link {
+  @include panel;
+
+  background-color: #e5e5e5;
+
+  i {
+    margin-right: 1rem;
+  }
+}
+
+@mixin accordion-list($color) {
+
+  [accordion-transclude="heading"] {
+    color: $color;
+
+    i.fa-angle-down, i.fa-angle-up {
+      font-size: x-large;
+    }
+  }
+
+  dd a, dd > .content.active {
+    background-color: $panel-bg;
+    padding: 6px 6px 6px 6px;
+  }
+
+  table {
+    tr:nth-child(even) {
+      background-color: lighten($color, 35%);
+    }
+    width: 100%;
+  }
+}
+
+.class-info__absent-list {
+  @include accordion-list($alert-color);
+}
+
+.class-info__grades-list {
+  @include accordion-list($success-color);
+}

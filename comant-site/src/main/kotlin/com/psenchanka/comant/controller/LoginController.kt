@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/login")
-class LoginController @Autowired constructor(val userService: UserService) {
+open class LoginController @Autowired constructor(val userService: UserService) {
 
     @RequestMapping("", method = arrayOf(RequestMethod.POST))
     @ApiOperation("Log in",
@@ -25,7 +26,8 @@ class LoginController @Autowired constructor(val userService: UserService) {
             ApiResponse(code = 200, message = "OK"),
             ApiResponse(code = 403, message = "Bad credentials")
     )
-    fun login(
+    @Transactional
+    open fun login(
             @ApiParam("User credentials") @RequestBody credentials: AuthorizationDto
     ) : AuthenticationTokenDto {
         val (username, password) = credentials

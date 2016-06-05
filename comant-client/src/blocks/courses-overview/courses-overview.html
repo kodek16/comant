@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="small-12 columns">
+    <div class="column">
         <h1>Courses List</h1>
     </div>
 </div>
@@ -22,12 +22,12 @@
     </div>
 </form>
 
-<courses-list name="Ongoing courses"
+<courses-list name="My ongoing courses"
               from="coursesOverview.ongoingCourses"
               query="coursesOverview.query"
               ng-show="coursesOverview.shouldShow('ongoing')"></courses-list>
 
-<courses-list name="Past courses"
+<courses-list name="My past courses"
               from="coursesOverview.pastCourses"
               query="coursesOverview.query"
               ng-show="coursesOverview.shouldShow('past')"></courses-list>

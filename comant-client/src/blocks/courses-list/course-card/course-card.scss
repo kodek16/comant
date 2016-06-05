@@ -3,3 +3,7 @@
 .courses-list__course-card {
   @include panel;
 }
+
+.courses-list__course-card:hover {
+  background-color: darken($panel-bg, 10%);
+}

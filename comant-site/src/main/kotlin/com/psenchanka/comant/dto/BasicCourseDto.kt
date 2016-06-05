@@ -3,7 +3,7 @@ package com.psenchanka.comant.dto
 import com.psenchanka.comant.model.Course
 import java.time.LocalDate
 
-data class BasicCourseDto(
+open class BasicCourseDto(
         var id: Int?,
         var name: String,
         var description: String,

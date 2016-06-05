@@ -2,7 +2,7 @@ package com.psenchanka.comant.dto
 
 import com.psenchanka.comant.model.User
 
-data class BasicUserDto(
+open class BasicUserDto(
         var username: String,
         var firstname: String,
         var lastname: String,

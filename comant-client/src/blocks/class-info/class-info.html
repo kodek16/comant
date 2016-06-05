@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="column">
+        <div class="panel">
+            <div class="row">
+                <div class="small-12 large-6 columns">
+                    <h2>{{ class.name }}</h2>
+                    <h4 class="subheader">{{ [class.startsOn, class.endsOn] | timeInterval }}</h4>
+                    <p>{{ class.description }}</p>
+                </div>
+
+                <div class="small-12 large-6 columns">
+                    <h4>Content</h4>
+                    <div ng-repeat="link in class.links" class="class-info__link">
+                        <i class="fa fa-external-link" aria-hidden="true"></i>
+                        <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+                        <p>{{ link.comment }}</p>
+                    </div>
+                </div>
+
+                <div ng-cloak ng-show="isInstructor">
+                    <hr />
+
+                    <div class="small-12 large-6 columns">
+                        <accordion class="class-info__absent-list">
+                            <accordion-group is-open="absentIsOpen">
+                                <accordion-heading>
+                                    Absent listeners ({{ class.absentListeners.length }}):
+                                    <i ng-class="{'fa-angle-down': !absentIsOpen, 'fa-angle-up': absentIsOpen}"
+                                       class="fa right" aria-hidden="true"></i>
+                                </accordion-heading>
+
+                                <table>
+                                    <tbody>
+                                    <tr ng-repeat="absent in class.absentListeners">
+                                        <td>{{ absent | userFullName }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+
+                    <div class="small-12 large-6 columns">
+                        <accordion class="class-info__grades-list">
+                            <accordion-group is-open="gradesIsOpen">
+                                <accordion-heading>
+                                    Grades ({{ class.grades.length }}):
+                                    <i ng-class="{'fa-angle-down': !gradesIsOpen, 'fa-angle-up': gradesIsOpen}"
+                                       class="fa right" aria-hidden="true"></i>
+                                </accordion-heading>
+
+                                <table>
+                                    <tbody>
+                                    <tr ng-repeat="grade in class.grades">
+                                        <td>{{ grade.listener | userFullName }}</td>
+                                        <td>{{ grade.grade }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,9 @@
 @charset "utf-8";
 
-@import 'blocks/title-bar/title-bar';
-@import 'blocks/courses-list/course-card/course-card';
-@import 'blocks/courses-overview/courses-overview';
+$fa-font-path: "../bower_components/font-awesome/fonts";
+
+@import 'font-awesome';
+
+table.fill-horizontally {
+  width: 100%;
+}
