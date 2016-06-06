@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="column">
+        <h1>All lectures</h1>
+
+        <table class="lectures-list__lectures-table">
+            <tbody>
+                <tr ng-repeat="lecture in lecturesList.lectures" ng-click="lecturesList.goToLecture(lecture)">
+                    <td>
+                        <strong>{{ lecture.name }}</strong>
+                        <em>by {{ lecture.author | userFullName }}</em>
+                        <span class="right">at {{ lecture.lastUpdate | date }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

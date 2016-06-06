@@ -17,7 +17,7 @@ import springfox.documentation.annotations.ApiIgnore
 @RequestMapping("/api/courses")
 open class CourseController @Autowired constructor(val courseService: CourseService, val userService: UserService) {
 
-    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No course with given id")
+    @ResponseStatus(HttpStatus.NOT_FOUND, reason = "No course with given id")
     class CourseNotFoundException : RuntimeException()
 
 
@@ -28,7 +28,7 @@ open class CourseController @Autowired constructor(val courseService: CourseServ
             ApiResponse(code = 200, message = "OK")
     )
     @Transactional
-    open fun getAllCourses(
+    open fun search(
             @ApiParam("Search by state (ongoing/past/new)") @RequestParam(required = false) state: String?,
             @ApiParam("Search by related user (listener or instructor)") @RequestParam(required = false) user: String?,
             @ApiParam("Return detailed information?") @RequestParam(required = false) detailed: String?

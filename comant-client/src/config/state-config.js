@@ -58,6 +58,24 @@
         controller: 'ListenersListController',
         controllerAs: 'listenersList'
       })
+      .state('lectures', {
+        url: '/lectures',
+        templateUrl: 'blocks/lectures-list/lectures-list.html',
+        controller: 'LecturesListController',
+        controllerAs: 'lecturesList',
+        data: {
+          requireLogin: true
+        }
+      })
+      .state('lecture', {
+        url: '/lecture/{lectureId}',
+        templateUrl: 'blocks/lecture-view/lecture-view.html',
+        controller: 'LectureViewController',
+        controllerAs: 'lectureView',
+        data: {
+          requireLogin: true
+        }
+      })
       .state('logout', {
         url: '/logout',
         data: {

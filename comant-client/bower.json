@@ -15,7 +15,8 @@
     "test",
     "tests"
   ],
-  "devDependencies": {
+
+  "dependencies": {
     "foundation": "^5.5.3",
     "angular": "^1.5.5",
     "angular-foundation": "^0.8.0",
@@ -25,6 +26,7 @@
     "angular-ui-router": "^0.3.0",
     "angular-resource": "^1.5.5",
     "moment": "^2.13.0",
-    "font-awesome": "^4.6.3"
+    "font-awesome": "^4.6.3",
+    "ng-showdown": "^1.1.0"
   }
 }

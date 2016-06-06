@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="column">
+        <h1>{{ lectureView.lecture.name }}</h1>
+        <h3 class="subheader"><em>{{ lectureView.lecture.author | userFullName }}</em> at {{ lectureView.lecture.lastUpdate | date }}</h3>
+        <hr />
+        <div markdown-to-html="lectureView.lecture.text"></div>
+    </div>
+</div>

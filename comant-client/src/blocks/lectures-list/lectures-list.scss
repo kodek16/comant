@@ -1,0 +1,9 @@
+@import 'foundation';
+
+.lectures-list__lectures-table {
+  width: 100%;
+  
+  tr:hover {
+    background-color: darken($table-bg, 10%);
+  }
+}

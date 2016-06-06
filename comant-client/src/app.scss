@@ -1,9 +1,27 @@
 @charset "utf-8";
 
-$fa-font-path: "../bower_components/font-awesome/fonts";
+@import 'foundation';
 
+$fa-font-path: "../bower_components/font-awesome/fonts";
 @import 'font-awesome';
 
 table.fill-horizontally {
   width: 100%;
+}
+
+pre {
+  code {
+    display: inline-block;
+    width: 100%;
+    padding: 16px;
+    font-size: medium;
+
+    overflow: auto;
+  }
+
+  overflow: auto;
+  word-wrap: normal;
+  white-space: pre;
+
+  margin-bottom: $paragraph-margin-bottom;
 }
